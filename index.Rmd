@@ -1,0 +1,53 @@
+---
+title: "El lenguaje de programación R - Graficación"
+author: "Manuel Vargas"
+date: "2020-04-23"
+output:
+  html_document:
+    theme: readable    
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Recursos de interés
+* Libro [_R Graphics Cookbook_, de Winston Chang](https://r-graphics.org/).
+* Sitio web sobre visualización de datos: [From data to Viz | Find the graphic you need](https://www.data-to-viz.com/).
+
+* Sitio web del curso: [GF-0604: Procesamiento de datos geográficos](https://geoprocesamiento-2020i.github.io/).
+* Datos utilizados durante el curso: [Datos del curso GF-0604: Procesamiento de datos geográficos](https://github.com/geoprocesamiento-2020i/datos).
+
+## Descripción general
+En esta lección se cubren algunas de las capacidades de graficación del lenguaje de programación [R](https://www.r-project.org/). Se presentan ejemplos y ejercicios para varios tipos de gráficos estadísticos. La lección se comparte en [GitHub](https://github.com/) como un documento en [R Markdown](https://rmarkdown.rstudio.com/) y se publica como una página web en [GitHub Pages](https://pages.github.com/). El documento puede ser clonado para modificarse con [RStudio](https://rstudio.com/) u otra herramienta similar.
+
+## Objetivos
+1. Conocer las principales bibliotecas de graficación del lenguaje de programación R.
+2. Aprender algunas de las principales funciones de graficación de R para generar diferentes tipos de gráficos estadísticos, incluyendo:
+- Gráficos de dispersión.
+- Gráficos de líneas.
+- Gráficos de barras.
+- Histogramas.
+- Gráficos de cajas.
+
+## Trabajo previo
+Se recomienda leer el [capítulo 2 del libro _R Graphics Cookbook_, de Winston Chang](_R Graphics Cookbook_, de Winston Chang).
+
+## Bifuración y clonación de este documento
+Ejecute los siguientes pasos para bifurcar a su cuenta en GitHub el repositorio que contiene este documento y posteriormente clonarlo a su computadora para editarlo con RStudio:
+
+1. Bifurque (_fork_) el repositorio [https://github.com/geoprocesamiento-2020i/leccion-05-r-graficacion/](https://github.com/geoprocesamiento-2020i/leccion-05-r-graficacion/) a su cuenta personal en GitHub.
+2. Si desea visualizar la lección como un sitio en GitHub Pages, en el apartado _Settings_ del repositorio bifurcado a su cuenta, busque la sección _GitHub Pages_ y habilítela al seleccionar _master branch_ como fuente. Tome nota de la dirección web resultante.
+3. Si no está ya instalado, instale en su computadora el sistema [Git](https://git-scm.com/) para control de versiones, siguiendo las instrucciones correspondientes a su sistema operativo:
+- [macOS](https://git-scm.com/download/mac).
+- [Microsoft Windows](https://git-scm.com/download/win).
+- [Unix/Linux](https://git-scm.com/download/linux).
+4. En RStudio, clone el repositorio de su cuenta personal con la opción de menú _File - New Project - Version Control - Git_. En _Repository URL_ escriba la dirección de su repositorio. Puede obtener esta dirección con el botón _Clone or download_, en la página principal del mismo repositorio.
+5. Abra el documento _index.Rmd_ en RStudio con _File - Open File_ y modifíquelo si lo desea.
+6. Cada vez que desee actualizar su documento en GitHub y GitHub Pages:
+- Presione el botón _Knit_ en RStudio para generar el archivo _index.html_.
+- Suba a su repositorio en GitHub los archivos _index.Rmd_ e _index.html_.
