@@ -139,7 +139,7 @@ ggplot(cr_covid19, aes(x = descartados, y = confirmados)) +
   geom_point()
 ```
 
-La manera usual de usar ```gglot()``` es con un data frame como argumento, especificando cuales columnas usar como valores de x e y. La primera parte, ```gglot()```, crea la base del gráfico (i.e. el canvas), mientras que ```geom_point()``` agrega una capa adicional, lo mismo que ```ggtitle()```.
+La manera usual de usar ```gglot()``` es con un data frame como argumento, especificando cuales columnas usar como valores de x e y. La primera parte, ```gglot()```, crea la base del gráfico (i.e. el canvas), mientras que ```geom_point()``` agrega una capa adicional, lo mismo que ```ggtitle()``` y las funciones restantes.
 
 #### Gráficos de líneas
 Un [gráfico de líneas (_line graph_ o _line chart_)](https://www.data-to-viz.com/graph/line.html) muestra la evolución de una o varias variables numéricas. Los puntos de datos se conectan mediante segmentos de líneas rectas. Los gráficos de líneas son usados frecuentemente para visualizar tendencias de los datos en intervalos de tiempo (i.e. en series temporales).
