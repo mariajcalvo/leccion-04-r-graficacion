@@ -46,7 +46,7 @@ R provee varios paquetes para generar gráficos. Aquí se estudiarán dos:
 
 #### Carga de los paquetes
 Antes de utilizarse, los paquetes deben cargarse con la función ```library()```.
-```
+```{r}
 # graphics
 library("graphics")
 
@@ -70,7 +70,7 @@ install.packages("tidyverse")
 En los siguientes ejemplos y ejercicios, se utilizarán dos conjuntos de datos, los cuales se cargan en data frames con la función ```read.csv()``` y se visualizan con la función ```View()```:
 
 #### Casos de Covid-19 en Centroamérica y República Dominicana
-Este conjunto de datos tiene un registro por país con los casos (confirmados, fallecidos, activos, etc.) acumulados hasta la fecha.
+Este conjunto de datos tiene un registro por país con los casos (confirmados, fallecidos, activos, etc.) acumulados hasta la fecha en cada uno.
 ```{r}
 ca_covid19 <- read.csv(file='https://raw.githubusercontent.com/geoprocesamiento-2020i/datos/master/covid19/casos/ca/ca-covid19.csv')
 
@@ -79,7 +79,7 @@ View(ca_covid19)
 ```
 
 #### Casos de Covid-19 en Costa Rica
-Contiene un registro por día con las estadísticas de casos confirmados, fallecidos, activos y otros.
+Este conjunto de datos es un ejemplo de una [serie temporal](https://en.wikipedia.org/wiki/Time_series): una sucesión de datos medidos en determinados momentos y ordenados cronológicamente. Contiene un registro por día con las estadísticas de casos confirmados, fallecidos, activos y otras variables.
 ```{r}
 cr_covid19 <- read.csv(file='https://raw.githubusercontent.com/geoprocesamiento-2020i/datos/master/covid19/casos/cr/cr-covid19-pais-acumulados.csv')
 
@@ -103,14 +103,67 @@ Para mejorar el gráfico, pueden utilizarse otras opciones de la función ```plo
 ```{r}
 plot(cr_covid19$descartados, 
      cr_covid19$confirmados,
-     main='Relación entre casos descartados y confirmados de Covid-19 en Costa Rica',
+     main='Relación entre casos descartados y confirmados de Covid-19 en CR',
      xlab='Casos descartados',
      ylab='Casos confirmados'
      )
 ```
 
+Con la función ```gglot()```, del paquete ggplot2, puede obtenerse un resultado similar:
+
+```{r}
+ggplot(cr_covid19, aes(x = descartados, y = confirmados)) +
+  ggtitle('Relación entre casos descartados y confirmados de Covid-19 en CR') +
+  geom_point()
+```
+
+La manera usual de usar ```gglot()``` es pasarle un data frame como argumento, especificando cuales columnas usar como valores de x e y. La primera parte, ```gglot()```, crea la base del gráfico (i.e. el canvas), mientras que ```geom_point()``` agrega una capa adicional, lo mismo que ```ggtitle()```.
 
 #### Gráficos de líneas
+Un [gráfico de líneas (_line graph_ o _line chart_)](https://www.data-to-viz.com/graph/line.html) muestra la evolución de una o varias variables numéricas. Los puntos de datos se conectan mediante segmentos de líneas rectas. Los gráficos de líneas son usados frecuentemente para visualizar tendencias de los datos en intervalos de tiempo (i.e. en series temporales).
 
+Puede hacerse un gráfico de líneas con la función ```plot()``` al pasarle como argumento ```type="l"```.
+
+```{r}
+plot(cr_covid19$descartados, 
+     cr_covid19$confirmados,
+     main='Relación entre casos descartados y confirmados de Covid-19 en CR',
+     xlab='Casos descartados',
+     ylab='Casos confirmados',
+     type="l"
+     )
+```
+
+Si se desea agregar más líneas, o series de puntos, debe entonces llamarse a ```plot()``` para la primera variable (ej. la primera línea) y luego agregar las restantes series de líneas o de puntos con las funciones ```lines()``` y ```points()```.
+
+```{r}
+# línea de casos confirmados
+plot(cr_covid19$descartados, 
+     cr_covid19$confirmados,
+     main='Relación entre casos descartados y confirmados/activos\n de Covid-19 en CR',
+     xlab='Casos descartados',
+     ylab='Casos confirmados/activos',
+     type="l",
+     col="blue"
+     )
+# puntos de casos confirmados
+points(cr_covid19$descartados, cr_covid19$confirmados, col="blue")
+
+# líneas y puntos de casos activos
+lines(cr_covid19$descartados, cr_covid19$activos, col="red")
+points(cr_covid19$descartados, cr_covid19$activos, col="red")
+```
+
+Con las funciones de ggplot2 puede conseguirse un resultado similar al crear el gráfico base con ```ggplot()``` y agregar las series de líneas y puntos con ```geom_line()``` y ```geom_point()```.
+
+```{r}
+ggplot(cr_covid19, aes(x=descartados)) + 
+  geom_line(aes(y = confirmados), color = "blue") +
+  geom_point(aes(y = confirmados), color = "blue") + 
+  geom_line(aes(y = activos), color="red") +
+  geom_point(aes(y = activos), color = "red") +
+  ggtitle("Relación entre casos descartados y confirmados/activos de Covid-19 en CR") +
+  xlab("Casos descartados") + ylab("Casos confirmados/activos")
+```
 
 #### Gráficos de barras
