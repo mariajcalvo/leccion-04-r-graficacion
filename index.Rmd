@@ -6,6 +6,7 @@ output:
   html_document:
     theme: readable    
     toc: true
+    toc_depth: 3
     toc_float:
       collapsed: false
       smooth_scroll: false    
@@ -19,6 +20,8 @@ knitr::opts_chunk$set(echo = TRUE)
 * Libro [_R Graphics Cookbook_, de Winston Chang](https://r-graphics.org/).
 * Sitio web sobre visualización de datos: [From data to Viz | Find the graphic you need](https://www.data-to-viz.com/).
 
+* Documentación de paquetes y funciones de R: [R Package Documentation](https://rdrr.io/).
+
 * Sitio web del curso: [GF-0604: Procesamiento de datos geográficos](https://geoprocesamiento-2020i.github.io/).
 * Datos utilizados durante el curso: [Datos del curso GF-0604: Procesamiento de datos geográficos](https://github.com/geoprocesamiento-2020i/datos).
 
@@ -26,13 +29,11 @@ knitr::opts_chunk$set(echo = TRUE)
 En esta lección se cubren algunas de las capacidades de graficación del lenguaje de programación [R](https://www.r-project.org/). Se presentan ejemplos y ejercicios para varios tipos de gráficos estadísticos. 
 
 ## Objetivos
-1. Conocer las principales bibliotecas de graficación del lenguaje de programación R.
+1. Conocer los principales paquetes de graficación del lenguaje de programación R.
 2. Aprender algunas de las principales funciones de graficación de R para generar diferentes tipos de gráficos estadísticos, incluyendo:
     - Gráficos de dispersión.
     - Gráficos de líneas.
     - Gráficos de barras.
-    - Histogramas.
-    - Gráficos de cajas.
 
 ## Trabajo previo
 Se recomienda leer el [capítulo 2 del libro _R Graphics Cookbook_, de Winston Chang](_R Graphics Cookbook_, de Winston Chang).
@@ -52,7 +53,9 @@ library("graphics")
 
 # ggplot2
 library("ggplot2")
+```
 
+```
 # opcionalmente, puede instalarse toda la colección tidyverse
 library("tidyverse")
 ```
@@ -72,7 +75,11 @@ En los siguientes ejemplos y ejercicios, se utilizarán dos conjuntos de datos, 
 #### Casos de Covid-19 en Centroamérica y República Dominicana
 Este conjunto de datos tiene un registro por país con los casos (confirmados, fallecidos, activos, etc.) acumulados hasta la fecha en cada uno.
 ```{r}
+# Datos en la Web
 ca_covid19 <- read.csv(file='https://raw.githubusercontent.com/geoprocesamiento-2020i/datos/master/covid19/casos/ca/ca-covid19.csv')
+
+# Datos locales
+# ca_covid19 <- read.csv(file='/home/mfvargas/geogrocesamiento-2020i/datos/covid19/casos/ca/ca-covid19.csv')
 
 # Despliegue de los datos
 View(ca_covid19)
@@ -81,7 +88,11 @@ View(ca_covid19)
 #### Casos de Covid-19 en Costa Rica
 Este conjunto de datos es un ejemplo de una [serie temporal](https://en.wikipedia.org/wiki/Time_series): una sucesión de datos medidos en determinados momentos y ordenados cronológicamente. Contiene un registro por día con las estadísticas de casos confirmados, fallecidos, activos y otras variables.
 ```{r}
+# Datos en la Web
 cr_covid19 <- read.csv(file='https://raw.githubusercontent.com/geoprocesamiento-2020i/datos/master/covid19/casos/cr/cr-covid19-pais-acumulados.csv')
+
+# Datos locales
+# cr_covid19 <- read.csv(file='/home/mfvargas/geogrocesamiento-2020i/datos/covid19/casos/cr/cr-covid19-pais-acumulados.csv')
 
 # Despliegue de los datos
 View(cr_covid19)
@@ -114,10 +125,12 @@ Con la función ```gglot()```, del paquete ggplot2, puede obtenerse un resultado
 ```{r}
 ggplot(cr_covid19, aes(x = descartados, y = confirmados)) +
   ggtitle('Relación entre casos descartados y confirmados de Covid-19 en CR') +
+  xlab('Casos descartados') +
+  ylab('Casos confirmados') +
   geom_point()
 ```
 
-La manera usual de usar ```gglot()``` es pasarle un data frame como argumento, especificando cuales columnas usar como valores de x e y. La primera parte, ```gglot()```, crea la base del gráfico (i.e. el canvas), mientras que ```geom_point()``` agrega una capa adicional, lo mismo que ```ggtitle()```.
+La manera usual de usar ```gglot()``` es con un data frame como argumento, especificando cuales columnas usar como valores de x e y. La primera parte, ```gglot()```, crea la base del gráfico (i.e. el canvas), mientras que ```geom_point()``` agrega una capa adicional, lo mismo que ```ggtitle()```.
 
 #### Gráficos de líneas
 Un [gráfico de líneas (_line graph_ o _line chart_)](https://www.data-to-viz.com/graph/line.html) muestra la evolución de una o varias variables numéricas. Los puntos de datos se conectan mediante segmentos de líneas rectas. Los gráficos de líneas son usados frecuentemente para visualizar tendencias de los datos en intervalos de tiempo (i.e. en series temporales).
@@ -142,7 +155,7 @@ plot(cr_covid19$descartados,
      cr_covid19$confirmados,
      main='Relación entre casos descartados y confirmados/activos\n de Covid-19 en CR',
      xlab='Casos descartados',
-     ylab='Casos confirmados/activos',
+     ylab='Casos confirmados (azul)/activos (rojo)',
      type="l",
      col="blue"
      )
@@ -158,12 +171,49 @@ Con las funciones de ggplot2 puede conseguirse un resultado similar al crear el 
 
 ```{r}
 ggplot(cr_covid19, aes(x=descartados)) + 
+  ggtitle("Relación entre casos descartados y confirmados/activos de Covid-19 en CR") +
+  xlab("Casos descartados") + 
+  ylab("Casos confirmados (azul) /activos (rojo)") +
   geom_line(aes(y = confirmados), color = "blue") +
   geom_point(aes(y = confirmados), color = "blue") + 
   geom_line(aes(y = activos), color="red") +
-  geom_point(aes(y = activos), color = "red") +
-  ggtitle("Relación entre casos descartados y confirmados/activos de Covid-19 en CR") +
-  xlab("Casos descartados") + ylab("Casos confirmados/activos")
+  geom_point(aes(y = activos), color = "red")
 ```
 
 #### Gráficos de barras
+Los [gráficos de barras (_barcharts_ o _barplots_)](https://www.data-to-viz.com/graph/barplot.html) muestran la relación entre una variable categórica y una variable numérica. Cada entidad de la variable categórica es representada mediante una barra, en la que su altura representa el valor correspondiente de la variable numérica.
+
+Para los ejemplos de esta sección, se utilizará el conjunto de datos de casos de Covid-19 de Centroamérica y República Dominicana. Para facilitar su visualización, se ordenan los registros de acuerdo con la columna de casos confirmados, mediante la función ```order()```.
+
+```{r}
+# Ordenar de mayor a menor
+ca_confirmados.ordenado <- order(ca_covid19$confirmados, decreasing=TRUE)
+
+# Nuevo data frame ordenado
+ca_covid19.confirmados <- ca_covid19[ca_confirmados.ordenado,]
+```
+
+La función ```barplot()```, del paquete graphics, se utiliza en el siguiente ejemplo para generar un gráfico de barras de los casos confirmados.
+
+```{r}
+barplot(
+  height=ca_covid19.confirmados$confirmados, 
+  names.arg=ca_covid19.confirmados$pais, 
+  xlab="País", 
+  ylab="Casos confirmados", 
+  main="Casos confirmados de Covid-19 en Centroamérica y DOM"
+)
+```
+
+La función ```geom_col()```, en combinación con ```ggplot()```, puede utilizarse para generar gráficos de barras.
+
+```{r}
+ggplot(ca_covid19, aes(x=reorder(pais, -confirmados), y=confirmados)) +
+  ggtitle("Casos confirmados de Covid-19 en Centroamérica y DOM") +
+  xlab("Casos descartados") + 
+  ylab("Casos confirmados") +  
+  geom_col() +
+  geom_text(aes(label=confirmados), vjust=-0.3, size=3.5)
+```
+
+Note el uso de la función ```reorder()``` en el ejemplo anterior, para ordenar el orden de las barras (i.e. los países) en el eje X y el de  ```geom_text() ``` para desplegar etiquetas sobre las barras.
