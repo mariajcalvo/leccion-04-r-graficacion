@@ -45,35 +45,36 @@ Se recomienda leer el [capítulo 2 del libro _R Graphics Cookbook_, de Winston C
 ### Paquetes
 R provee varios paquetes para generar gráficos. Aquí se estudiarán dos:  
 
-* [graphics](http://search.r-project.org/R/library/graphics/html/graphics-package.html): es un paquete para gráficos sencillos, parte de la instalación base de R.
+* [graphics](http://search.r-project.org/R/library/graphics/html/graphics-package.html): es un paquete para gráficos relativamente sencillos y forma parte de la instalación base de R.
 * [ggplot2](https://ggplot2.tidyverse.org/): es parte de [Tidyverse](https://www.tidyverse.org/), una colección de paquetes de R diseñada para utilizarse en [ciencia de datos](https://en.wikipedia.org/wiki/Data_science). Este paquete está basado en el libro [_The Grammar of Graphics_, de Leland Wilkinson et al.](https://www.springer.com/gp/book/9780387245447).
 
 #### Carga de los paquetes
 Antes de utilizarse, los paquetes deben cargarse con la función ```library()```.
 ```{r}
-# graphics
+# Carga de graphics
 library("graphics")
 
-# ggplot2
+# Carga de ggplot2
 library("ggplot2")
 ```
 
 ```
-# opcionalmente, puede instalarse toda la colección tidyverse
+# Opcionalmente, puede instalarse toda la colección tidyverse
 library("tidyverse")
 ```
 
 Si es necesario, ggplot2 y tidyverse pueden instalare con la función ```install.packages()```:
 ```
-# ggplot2
+# Instalación de ggplot2
 install.packages("ggplot2")
 
-# tidyverse
+# Instalación de tidyverse
 install.packages("tidyverse")
 ```
 
 Para obtener información sobre un paquete:
 ```
+# Ayuda en línea sobre ggplot2
 library(help="ggplot2")
 ```
 

@@ -1606,32 +1606,33 @@ div.tocify {
 <h3>Paquetes</h3>
 <p>R provee varios paquetes para generar gráficos. Aquí se estudiarán dos:</p>
 <ul>
-<li><a href="http://search.r-project.org/R/library/graphics/html/graphics-package.html">graphics</a>: es un paquete para gráficos sencillos, parte de la instalación base de R.</li>
+<li><a href="http://search.r-project.org/R/library/graphics/html/graphics-package.html">graphics</a>: es un paquete para gráficos relativamente sencillos y forma parte de la instalación base de R.</li>
 <li><a href="https://ggplot2.tidyverse.org/">ggplot2</a>: es parte de <a href="https://www.tidyverse.org/">Tidyverse</a>, una colección de paquetes de R diseñada para utilizarse en <a href="https://en.wikipedia.org/wiki/Data_science">ciencia de datos</a>. Este paquete está basado en el libro <a href="https://www.springer.com/gp/book/9780387245447"><em>The Grammar of Graphics</em>, de Leland Wilkinson et al.</a>.</li>
 </ul>
 <div id="carga-de-los-paquetes" class="section level4">
 <h4>Carga de los paquetes</h4>
 <p>Antes de utilizarse, los paquetes deben cargarse con la función <code>library()</code>.</p>
-<pre class="r"><code># graphics
+<pre class="r"><code># Carga de graphics
 library(&quot;graphics&quot;)
 
-# ggplot2
+# Carga de ggplot2
 library(&quot;ggplot2&quot;)</code></pre>
 <pre><code>## Registered S3 methods overwritten by 'ggplot2':
 ##   method         from 
 ##   [.quosures     rlang
 ##   c.quosures     rlang
 ##   print.quosures rlang</code></pre>
-<pre><code># opcionalmente, puede instalarse toda la colección tidyverse
+<pre><code># Opcionalmente, puede instalarse toda la colección tidyverse
 library(&quot;tidyverse&quot;)</code></pre>
 <p>Si es necesario, ggplot2 y tidyverse pueden instalare con la función <code>install.packages()</code>:</p>
-<pre><code># ggplot2
+<pre><code># Instalación de ggplot2
 install.packages(&quot;ggplot2&quot;)
 
-# tidyverse
+# Instalación de tidyverse
 install.packages(&quot;tidyverse&quot;)</code></pre>
 <p>Para obtener información sobre un paquete:</p>
-<pre><code>library(help=&quot;ggplot2&quot;)</code></pre>
+<pre><code># Ayuda en línea sobre ggplot2
+library(help=&quot;ggplot2&quot;)</code></pre>
 </div>
 </div>
 <div id="conjuntos-de-datos-utilizados-en-los-ejemplos" class="section level3">
