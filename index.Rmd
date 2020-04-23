@@ -18,15 +18,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Recursos de interés
 * Libro [_R Graphics Cookbook_, de Winston Chang](https://r-graphics.org/).
+* Libro [_The Grammar of Graphics_, de Leland Wilkinson et al.](https://www.springer.com/gp/book/9780387245447).
 * Sitio web sobre visualización de datos: [From data to Viz | Find the graphic you need](https://www.data-to-viz.com/).
 
 * Documentación de paquetes y funciones de R: [R Package Documentation](https://rdrr.io/).
+* Guía de instalación de paquetes de R: [R Packages: A Beginner's Guide](https://www.datacamp.com/community/tutorials/r-packages-guide?utm_source=adwords_ppc&utm_campaignid=1455363063&utm_adgroupid=65083631748&utm_device=c&utm_keyword=&utm_matchtype=b&utm_network=g&utm_adpostion=&utm_creative=278443377092&utm_targetid=aud-299261629574:dsa-473406586795&utm_loc_interest_ms=&utm_loc_physical_ms=9070296&gclid=CjwKCAjw-YT1BRAFEiwAd2WRtpTaL0eK8LpX_AMhsunLAyrx0ohDAofj8BLIyIbPxdpkDPUSvp202xoCEIAQAvD_BwE).
+* Video sobre instalación de paquetes en R: [How to install packages in R and RStudio?](https://www.youtube.com/watch?v=JBcVi-fAT_k).
 
 * Sitio web del curso: [GF-0604: Procesamiento de datos geográficos](https://geoprocesamiento-2020i.github.io/).
 * Datos utilizados durante el curso: [Datos del curso GF-0604: Procesamiento de datos geográficos](https://github.com/geoprocesamiento-2020i/datos).
 
 ## Descripción general
-En esta lección se cubren algunas de las capacidades de graficación del lenguaje de programación [R](https://www.r-project.org/). Se presentan ejemplos y ejercicios para varios tipos de gráficos estadísticos. 
+En esta lección se cubren algunas de las capacidades de graficación del lenguaje de programación [R](https://www.r-project.org/). Se presentan ejemplos de varios tipos de gráficos estadísticos. 
 
 ## Objetivos
 1. Conocer los principales paquetes de graficación del lenguaje de programación R.
@@ -67,6 +70,11 @@ install.packages("ggplot2")
 
 # tidyverse
 install.packages("tidyverse")
+```
+
+Para obtener información sobre un paquete:
+```
+library(help="ggplot2")
 ```
 
 ### Conjuntos de datos utilizados en los ejemplos
