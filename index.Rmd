@@ -51,3 +51,5 @@ Ejecute los siguientes pasos para bifurcar a su cuenta en GitHub el repositorio 
 6. Cada vez que desee actualizar su documento en GitHub y GitHub Pages:
 - Presione el botón _Knit_ en RStudio para generar el archivo _index.html_.
 - Suba a su repositorio en GitHub los archivos _index.Rmd_ e _index.html_.
+
+## Graficación en R
