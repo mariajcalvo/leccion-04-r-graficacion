@@ -226,3 +226,79 @@ ggplot(ca_covid19, aes(x=reorder(pais, -confirmados), y=confirmados)) +
 ```
 
 Note el uso de la función ```reorder()``` en el ejemplo anterior, para ordenar el orden de las barras (i.e. los países) en el eje X y el de  ```geom_text() ``` para desplegar etiquetas sobre las barras.
+
+#### Series temporales
+Las series temporales muestran los datos de algún fenómeno a lo largo de un periodo de tiempo. En R, el tiempo se maneja con tipos de datos especiales para fechas y horas.
+
+##### El tipo de datos   ```Date  ```
+```{r}
+# Variable tipo character
+hoy.char = "2020-04-27"
+print(hoy.char)
+print(typeof(hoy.char))
+
+hoy.fecha = as.Date(hoy.char)
+print(hoy.fecha)
+print(typeof(hoy.fecha))
+
+```
+
+Internamente, R maneja las fechas como números que empiezan el 1 de enero de 1970 (las fechas anteriores son números negativos). Las fechas pueden sumarse y restarse:
+```{r}
+# Suma de días a una fecha
+print(hoy.fecha + 4)
+```
+
+##### Gráficos con fechas
+En los siguientes ejemplos, se utilizará el paquete ggplot2 y el conjunto de datos de casos de COVID-19 en Costa Rica.
+
+```{r}
+# Carga de ggplot2
+library("ggplot2")
+
+# Opción para interpretar los datos de la columna de fechas como caracteres y no como factores (i.e. categorías)
+options(stringsAsFactors = FALSE)
+
+# Carga de datos de COVID-19 en Costa Rica en un dataframe
+cr_covid19 <- read.csv(file='https://raw.githubusercontent.com/geoprocesamiento-2020i/datos/master/covid19/casos/cr/cr-covid19-pais-acumulados.csv')
+
+# Estructura del data frame (observe los tipos de datos de las columnas)
+str(cr_covid19)
+```
+
+Graficación de la cantidad de casos confirmados a través del tiempo:
+
+```{r}
+# Gráfico de casos confirmados
+ggplot(data = cr_covid19, aes(x = fecha, y = confirmados)) +
+  geom_point() +
+  labs(x = "Fecha",
+    y = "Casos confirmados",
+    title = "Casos confirmados de COVID-19 en Costa Rica",
+    subtitle = "Fuente: Ministerio de Salud")
+```
+
+Para visualizar mejor los resultados, es conveniente convertir la columna fecha al tipo Date:
+
+```{r}
+# Conversión
+cr_covid19$fecha <- as.Date(cr_covid19$fecha)
+
+# Revisión del tipo de datos
+class(cr_covid19$fecha)
+
+# Visualización de los primeros registros
+head(cr_covid19$fecha)
+```
+
+Se repite el gráfico:
+
+```{r}
+# Gráfico de casos confirmados
+ggplot(data = cr_covid19, aes(x = fecha, y = confirmados)) +
+  geom_point() +
+  labs(x = "Fecha",
+    y = "Casos confirmados",
+    title = "Casos confirmados de COVID-19 en Costa Rica",
+    subtitle = "Fuente: Ministerio de Salud")
+```
