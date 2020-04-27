@@ -232,15 +232,19 @@ Las series temporales muestran los datos de algún fenómeno a lo largo de un pe
 
 ##### El tipo de datos   ```Date  ```
 ```{r}
-# Variable tipo character
+# Variable tipo caracter
 hoy.char = "2020-04-27"
 print(hoy.char)
 print(typeof(hoy.char))
+```
 
+La función [as.Date()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/as.Date) convierte un texto a tipo fecha:
+
+```{r}
+# Variable tipo date
 hoy.fecha = as.Date(hoy.char)
 print(hoy.fecha)
 print(typeof(hoy.fecha))
-
 ```
 
 Internamente, R maneja las fechas como números que empiezan el 1 de enero de 1970 (las fechas anteriores son números negativos). Las fechas pueden sumarse y restarse:
@@ -291,14 +295,65 @@ class(cr_covid19$fecha)
 head(cr_covid19$fecha)
 ```
 
-Se repite el gráfico:
+Se repite el gráfico anterior de puntos:
 
 ```{r}
 # Gráfico de casos confirmados
 ggplot(data = cr_covid19, aes(x = fecha, y = confirmados)) +
-  geom_point() +
+  geom_point(color = "blue") +
   labs(x = "Fecha",
     y = "Casos confirmados",
     title = "Casos confirmados de COVID-19 en Costa Rica",
     subtitle = "Fuente: Ministerio de Salud")
+```
+
+Gráfico de barras:
+
+```{r}
+ggplot(data = cr_covid19, aes(x = fecha, y = confirmados)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  labs(x = "Fecha",
+    y = "Casos confirmados",
+    title = "Casos confirmados de COVID-19 en Costa Rica",
+    subtitle = "Fuente: Ministerio de Salud")
+```
+
+Gráfico con varias series de datos:
+  
+```{r}
+ggplot(data = cr_covid19, aes(x = fecha, y = activos)) +
+  labs(x = "Fecha",
+    y = "Casos confirmados (azul) / activos (rojo)",
+    title = "Casos confirmados de COVID-19",
+    subtitle = "Fuente: Ministerio de Salud") +
+  geom_line(aes(y = confirmados), color = "blue") +  
+  geom_bar(stat = "identity", fill = "red")
+```
+
+Los siguientes ejemplos muestran como especificar cortes (_breaks_) personalizados en las fechas del eje X. Se utiliza el paquete [dplyr](https://dplyr.tidyverse.org/), para manipulación y tranformación de datos, el cuál también es parte de [Tidyverse](https://www.tidyverse.org/).
+
+```{r}
+library(dplyr)
+
+# Se separa un subconjunto de datos, de acuerdo con un rango de fechas:
+cr_covid19_marzo <- cr_covid19 %>%
+  filter(fecha >= as.Date("2020-03-06") & fecha <  as.Date("2020-03-31"))
+
+# Creación del gráfico base, sin los cortes:
+cr_covid19_grafico <- ggplot(cr_covid19_marzo, aes(x = fecha, y = confirmados)) +
+  geom_line()
+
+cr_covid19_grafico
+```
+
+Los cortes se especificar mediante la función [seq()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/seq):
+
+```{r}
+# Los cortes se almacenan en un vector
+cortes <- seq(as.Date("2020-03-06"), as.Date("2020-03-31"), by = "3 day")
+
+# Gráfico con cortes y ángulos en las etiquetas
+cr_covid19_grafico +
+  scale_x_date(breaks = cortes) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
