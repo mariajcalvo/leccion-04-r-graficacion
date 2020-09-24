@@ -1,6 +1,6 @@
 ---
 title: "El lenguaje de programación R - Graficación"
-author: "Manuel Vargas"
+author: "María José Calvo"
 date: "2020-09-09"
 output:
   html_document:
